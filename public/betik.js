@@ -50,7 +50,19 @@ const etkinlikler = [
 ];
 
 const liste = document.getElementById("etkinlikListesi");
+const arama = document.getElementById("arama");
+const dugmeler = document.querySelectorAll(".filtreler button");
+const durumMesaji = document.getElementById("durumMesaji");
 
+const turAdlari = {
+    atolye: "Atölye",
+    soylesi: "Söyleşi",
+    topluluk: "Topluluk"
+};
+
+let secilenTur = "tumu";
+
+// Etkinlik kartlarını oluşturur.
 function kartlariGoster(veriler) {
     liste.replaceChildren();
 
@@ -72,12 +84,6 @@ function kartlariGoster(veriler) {
         const kontenjan = document.createElement("p");
         kontenjan.textContent = "Kontenjan: " + etkinlik.kontenjan;
 
-        const turAdlari = {
-            atolye: "Atölye",
-            soylesi: "Söyleşi",
-            topluluk: "Topluluk"
-        };
-
         const etiket = document.createElement("span");
         etiket.className = "etiket";
         etiket.textContent = turAdlari[etkinlik.tur];
@@ -87,13 +93,7 @@ function kartlariGoster(veriler) {
     });
 }
 
-kartlariGoster(etkinlikler);
-const arama = document.getElementById("arama");
-const dugmeler = document.querySelectorAll(".filtreler button");
-const durumMesaji = document.getElementById("durumMesaji");
-
-let secilenTur = "tumu";
-
+// Tür filtresini ve aramayı birlikte uygular.
 function filtreleVeGoster() {
     const aranan = arama.value.trim().toLocaleLowerCase("tr-TR");
 
@@ -131,3 +131,48 @@ dugmeler.forEach(function (dugme) {
         filtreleVeGoster();
     });
 });
+
+// Öneri formunu kontrol eder.
+const form = document.getElementById("oneriFormu");
+const adAlani = document.getElementById("etkinlikAdi");
+const tarihAlani = document.getElementById("etkinlikTarihi");
+const epostaAlani = document.getElementById("eposta");
+const formMesaji = document.getElementById("formMesaji");
+
+form.addEventListener("submit", function (olay) {
+    olay.preventDefault();
+
+    const hatalar = [];
+
+    if (adAlani.value.trim().length < 5) {
+        hatalar.push("Etkinlik adı en az 5 karakter olmalıdır.");
+    }
+
+    const bugun = new Date();
+    bugun.setHours(0, 0, 0, 0);
+
+    const secilenTarih =
+        new Date(tarihAlani.value + "T00:00:00");
+
+    if (!tarihAlani.value || isNaN(secilenTarih.getTime())) {
+        hatalar.push("Geçerli bir tarih seçiniz.");
+    } else if (secilenTarih < bugun) {
+        hatalar.push("Tarih geçmiş bir gün olamaz.");
+    }
+
+    if (!epostaAlani.value.trim() || !epostaAlani.validity.valid) {
+        hatalar.push("Geçerli bir e-posta adresi giriniz.");
+    }
+
+    if (hatalar.length > 0) {
+        formMesaji.className = "hata";
+        formMesaji.textContent = hatalar.join(" ");
+    } else {
+        formMesaji.className = "basari";
+        formMesaji.textContent =
+            "Teşekkürler! Etkinlik öneriniz doğrulamadan geçti.";
+        form.reset();
+    }
+});
+
+filtreleVeGoster();
