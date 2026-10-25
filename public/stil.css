@@ -1,0 +1,114 @@
+:root {
+    --ana-renk: #315b46;
+    --arka-plan: #f3f6f3;
+    --yazi-rengi: #24332a;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--arka-plan);
+    color: var(--yazi-rengi);
+    line-height: 1.6;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: var(--ana-renk);
+    color: white;
+}
+
+header p {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+}
+
+main {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+section {
+    margin-bottom: 30px;
+    padding: 24px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+form {
+    max-width: 500px;
+}
+
+form div {
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #737d76;
+    border-radius: 5px;
+    font: inherit;
+}
+
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--ana-renk);
+    color: white;
+    font: inherit;
+    cursor: pointer;
+}
+
+a:focus-visible,
+input:focus-visible,
+button:focus-visible {
+    outline: 3px solid #b06000;
+    outline-offset: 3px;
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav {
+        flex-wrap: wrap;
+    }
+
+    section {
+        padding: 16px;
+    }
+}
