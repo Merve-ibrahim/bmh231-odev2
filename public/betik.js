@@ -88,3 +88,46 @@ function kartlariGoster(veriler) {
 }
 
 kartlariGoster(etkinlikler);
+const arama = document.getElementById("arama");
+const dugmeler = document.querySelectorAll(".filtreler button");
+const durumMesaji = document.getElementById("durumMesaji");
+
+let secilenTur = "tumu";
+
+function filtreleVeGoster() {
+    const aranan = arama.value.trim().toLocaleLowerCase("tr-TR");
+
+    const sonuclar = etkinlikler.filter(function (etkinlik) {
+        const turUygun =
+            secilenTur === "tumu" || etkinlik.tur === secilenTur;
+
+        const baslikUygun = etkinlik.baslik
+            .toLocaleLowerCase("tr-TR")
+            .includes(aranan);
+
+        return turUygun && baslikUygun;
+    });
+
+    kartlariGoster(sonuclar);
+
+    durumMesaji.textContent = sonuclar.length === 0
+        ? "Aramanıza uygun etkinlik yok."
+        : "";
+}
+
+arama.addEventListener("input", filtreleVeGoster);
+
+dugmeler.forEach(function (dugme) {
+    dugme.addEventListener("click", function () {
+        secilenTur = dugme.dataset.tur;
+
+        dugmeler.forEach(function (buton) {
+            const secili = buton === dugme;
+
+            buton.classList.toggle("secili", secili);
+            buton.setAttribute("aria-pressed", String(secili));
+        });
+
+        filtreleVeGoster();
+    });
+});
