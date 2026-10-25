@@ -20,6 +20,28 @@
         <section id="liste">
             <h1>Yaklaşan Etkinlikler</h1>
             <p>Kampüsteki etkinlikleri burada bulabilirsiniz.</p>
+            <div class="arama-filtre">
+    <div>
+        <label for="arama">Etkinlik ara:</label>
+        <input type="search" id="arama"
+               placeholder="Etkinlik adı yazınız">
+    </div>
+
+    <div class="filtreler" role="group" aria-label="Etkinlik türü">
+        <button type="button" class="secili"
+                data-tur="tumu" aria-pressed="true">Tümü</button>
+        <button type="button"
+                data-tur="atolye" aria-pressed="false">Atölye</button>
+        <button type="button"
+                data-tur="soylesi" aria-pressed="false">Söyleşi</button>
+        <button type="button"
+                data-tur="topluluk" aria-pressed="false">Topluluk</button>
+    </div>
+</div>
+
+<p id="durumMesaji" role="status"></p>
+
+<div id="etkinlikListesi" class="kartlar"></div>
         </section>
 
         <section id="oneri">

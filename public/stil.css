@@ -112,3 +112,67 @@ footer {
         padding: 16px;
     }
 }
+.arama-filtre {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin: 24px 0;
+}
+
+.arama-filtre > div:first-child {
+    flex: 1;
+}
+
+.filtreler {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filtreler button {
+    background-color: white;
+    color: var(--ana-renk);
+    border: 2px solid var(--ana-renk);
+}
+
+.filtreler button.secili {
+    background-color: var(--ana-renk);
+    color: white;
+}
+
+.kartlar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.kart {
+    padding: 20px;
+    border: 1px solid #c4cec7;
+    border-radius: 8px;
+    overflow-wrap: anywhere;
+}
+
+.kart h2 {
+    margin-top: 0;
+}
+
+.etiket {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: #e4eee7;
+    color: var(--ana-renk);
+    border-radius: 5px;
+}
+
+@media (max-width: 600px) {
+    .arama-filtre {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .kartlar {
+        grid-template-columns: 1fr;
+    }
+}
