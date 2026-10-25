@@ -1,0 +1,9 @@
+{
+    "name": "bmh231-odev2",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Kampüs etkinliklerini listeleyen web uygulaması",
+    "scripts": {
+        "start": "node sunucu.js"
+    }
+}
