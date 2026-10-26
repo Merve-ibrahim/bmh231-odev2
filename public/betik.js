@@ -1,53 +1,4 @@
-const etkinlikler = [
-    {
-        id: 1,
-        baslik: "Web Programlama Atölyesi",
-        tur: "atolye",
-        tarih: "2026-11-10",
-        yer: "Bilgisayar Laboratuvarı",
-        kontenjan: 30
-    },
-    {
-        id: 2,
-        baslik: "Git ve GitHub Atölyesi",
-        tur: "atolye",
-        tarih: "2026-11-12",
-        yer: "Bilgisayar Laboratuvarı",
-        kontenjan: 25
-    },
-    {
-        id: 3,
-        baslik: "Yapay Zekâ Söyleşisi",
-        tur: "soylesi",
-        tarih: "2026-11-16",
-        yer: "Konferans Salonu",
-        kontenjan: 200
-    },
-    {
-        id: 4,
-        baslik: "Yazılımda Kariyer Söyleşisi",
-        tur: "soylesi",
-        tarih: "2026-11-18",
-        yer: "Mühendislik Fakültesi",
-        kontenjan: 120
-    },
-    {
-        id: 5,
-        baslik: "Yazılım Topluluğu Tanışma Toplantısı",
-        tur: "topluluk",
-        tarih: "2026-11-20",
-        yer: "Öğrenci Merkezi",
-        kontenjan: 60
-    },
-    {
-        id: 6,
-        baslik: "Kitap Topluluğu Buluşması",
-        tur: "topluluk",
-        tarih: "2026-11-23",
-        yer: "Kütüphane",
-        kontenjan: 40
-    }
-];
+let etkinlikler = [];
 
 const liste = document.getElementById("etkinlikListesi");
 const arama = document.getElementById("arama");
@@ -115,8 +66,10 @@ function filtreleVeGoster() {
         : "";
 }
 
+// Arama kutusuna yazıldığında sonuçları günceller.
 arama.addEventListener("input", filtreleVeGoster);
 
+// Tür düğmelerine tıklandığında filtreyi değiştirir.
 dugmeler.forEach(function (dugme) {
     dugme.addEventListener("click", function () {
         secilenTur = dugme.dataset.tur;
@@ -132,13 +85,14 @@ dugmeler.forEach(function (dugme) {
     });
 });
 
-// Öneri formunu kontrol eder.
+// Öneri formunun alanları.
 const form = document.getElementById("oneriFormu");
 const adAlani = document.getElementById("etkinlikAdi");
 const tarihAlani = document.getElementById("etkinlikTarihi");
 const epostaAlani = document.getElementById("eposta");
 const formMesaji = document.getElementById("formMesaji");
 
+// Form gönderildiğinde bilgileri kontrol eder.
 form.addEventListener("submit", function (olay) {
     olay.preventDefault();
 
@@ -171,8 +125,43 @@ form.addEventListener("submit", function (olay) {
         formMesaji.className = "basari";
         formMesaji.textContent =
             "Teşekkürler! Etkinlik öneriniz doğrulamadan geçti.";
+
         form.reset();
     }
 });
 
-filtreleVeGoster();
+// Etkinlikleri API'den alır.
+async function etkinlikleriGetir() {
+    durumMesaji.textContent = "Yükleniyor...";
+
+    arama.disabled = true;
+
+    dugmeler.forEach(function (dugme) {
+        dugme.disabled = true;
+    });
+
+    try {
+        const response = await fetch("/api/etkinlikler");
+
+        if (!response.ok) {
+            throw new Error("HTTP hatası: " + response.status);
+        }
+
+        etkinlikler = await response.json();
+
+        filtreleVeGoster();
+
+        arama.disabled = false;
+
+        dugmeler.forEach(function (dugme) {
+            dugme.disabled = false;
+        });
+    } catch (hata) {
+        liste.replaceChildren();
+
+        durumMesaji.textContent =
+            "Etkinlikler yüklenemedi. Lütfen daha sonra tekrar deneyiniz.";
+    }
+}
+
+etkinlikleriGetir();
