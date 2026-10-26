@@ -1,6 +1,6 @@
 # Kampüs Etkinlik Panosu
 
-Bu proje, kampüsteki etkinlikleri listelemek ve kullanıcıların etkinlik önerisi yapmasını sağlamak amacıyla hazırlanmıştır.
+Bu projede kampüsteki etkinlikler listelenmektedir. Kullanıcı etkinlik arayabilir, etkinlikleri türüne göre filtreleyebilir ve formdan etkinlik önerisinde bulunabilir.
 
 ## Kullanılan teknolojiler
 
@@ -9,39 +9,42 @@ Bu proje, kampüsteki etkinlikleri listelemek ve kullanıcıların etkinlik öne
 - JavaScript
 - Node.js
 
+## Projeyi indirme
+
+Terminalde aşağıdaki komutları çalıştırın:
+
+```bash
+git clone https://github.com/Merve-ibrahim/bmh231-odev2.git
+cd bmh231-odev2
+```
+
 ## Projeyi çalıştırma
 
-1. Bilgisayarınızda Node.js yüklü olmalıdır.
-2. Terminalde proje klasörüne gidin.
-3. Sunucuyu başlatın:
+Proje klasöründe terminali açıp şu komutu yazın:
 
-   ```bash
-   npm start
-   ```
+```bash
+npm start
+```
 
-4. Tarayıcıda `http://localhost:3000` adresini açın.
+Daha sonra tarayıcıda `http://localhost:3000` adresini açın.
 
-Windows PowerShell'de komut çalışmazsa `npm.cmd start` kullanılabilir.
-
-## Özellikler
-
-- Etkinlikler sunucudan alınarak listelenir.
-- Etkinlik adına göre arama yapılabilir.
-- Etkinlikler türlerine göre filtrelenebilir.
-- Öneri formunda ad, tarih ve e-posta bilgileri kontrol edilir.
-- Sayfa farklı ekran boyutlarına uyum sağlar.
+PowerShell'de hata alınırsa `npm.cmd start` kullanılabilir.
 
 ## API testleri
 
-| İstek | Sonuç | Açıklama |
-|---|---|---|
-| `GET /api/etkinlikler?tur=atolye` | 200 | Atölye türündeki etkinlikleri listeler. |
-| `GET /api/etkinlikler/2` | 200 | ID değeri 2 olan etkinliği getirir. |
-| `GET /api/etkinlikler/999` | 404 | Bulunmayan etkinlik için hata döndürür. |
-| `DELETE /api/etkinlikler/2` | 405 | Desteklenmeyen yöntem için hata döndürür. |
+| Yöntem ve yol | Sonuç |
+|---|---|
+| GET /api/etkinlikler | 200 – Tüm etkinlikleri getirir. |
+| GET /api/etkinlikler?tur=atolye | 200 – Atölyeleri getirir. |
+| GET /api/etkinlikler/2 | 200 – 2 numaralı etkinliği getirir. |
+| GET /api/etkinlikler/999 | 404 – Etkinlik bulunamadı. |
+| DELETE /api/etkinlikler/2 | 405 – Yöntem desteklenmiyor. |
 
 Test sonuçları `API_Testleri.txt` dosyasında bulunmaktadır.
 
-## Erişilebilirlik testi
+## Erişilebilirlik
 
-Lighthouse ile erişilebilirlik testi yapıldı. E-posta alanının etiketi varken sonuç **100**, etiket geçici olarak kaldırıldığında **93** olarak ölçüldü. Testten sonra etiket tekrar eklendi.
+Lighthouse testinde erişilebilirlik sonucu 100 oldu. E-posta etiketi geçici olarak kaldırıldığında sonuç 93 oldu. Testten sonra etiket tekrar eklendi.
+## Ekran görüntüsü
+
+![Etkinlik panosu](ekran.png)
